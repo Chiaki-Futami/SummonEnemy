@@ -127,7 +127,7 @@ namespace SummonEnemy
 
                                 if (em.SoEm.IsVehicle) continue;
 
-                                var emName = em.SoEmData.Name;
+                                var emName = Traverse.Create(em).Field("SoEmData").GetValue<Oc.SoEnemyData>().Name;
                                 var emType = instEm[i].EmType;
 
                                 if (!emDic.ContainsKey(emType))
@@ -282,11 +282,6 @@ namespace SummonEnemy
                 WindowState = false;
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
-
-                if (!SingletonMonoBehaviour<OcNetMng>.Inst.needEmLocalCtrl())
-                {
-                    return;
-                }
 
                 var inst = SingletonMonoBehaviour<OcPlMng>.Inst;
                 var plV3 = inst.getPlPos(0).Value;
